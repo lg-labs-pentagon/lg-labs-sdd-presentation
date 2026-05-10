@@ -7,7 +7,7 @@
     "build": "./build.sh",
     "lint:md": "markdownlint \"**/*.md\" --ignore node_modules --ignore public",
     "lint:md:fix": "markdownlint \"**/*.md\" --ignore node_modules --ignore public --fix",
-    "check:links": "lychee --no-progress --exclude-path public --exclude-path node_modules --exclude-mail \"./**/*.md\"",
+    "check:links": "lychee --no-progress --exclude-path public --exclude-path node_modules \"./**/*.md\"",
     "check:specs": "bash scripts/check-specs.sh",
     "check:all": "npm run lint:md && npm run check:specs",
     "preview": "firebase emulators:start --only hosting",

@@ -231,6 +231,44 @@ Para saltar el hook puntualmente: `git commit --no-verify` (no abuses).
 
 Los PRs llegan etiquetados con `dependencies` para filtrarlos fácil.
 
+> ⚠️ **Nota sobre secrets en PRs de Dependabot:** GitHub no inyecta los secrets del repo en PRs creados por Dependabot ni desde forks (medida de seguridad para evitar exfiltración). Por eso el step de "Deploy preview (PRs)" se salta automáticamente cuando `FIREBASE_SERVICE_ACCOUNT` no está disponible (ver `.github/workflows/deploy.yml`). Si quieres dar previews de Firebase también a Dependabot, agrega el secret en **Settings → Secrets and variables → Dependabot** (es independiente del scope de Actions).
+
+## Workflow de contribución
+
+La rama `main` está protegida: requiere PR + checks verdes, no permite force-push, deletions ni history no-lineal. Para cualquier cambio:
+
+```bash
+# 1. Crear rama desde main actualizado
+git checkout main && git pull
+git checkout -b feat/mi-cambio
+
+# 2. Editar, commit (Husky correrá markdownlint en .md modificados)
+vim es/slides.default.md
+git commit -am "docs(es): tweak slide N"
+
+# 3. Push y abrir PR
+git push -u origin feat/mi-cambio
+gh pr create --fill
+
+# 4. Esperar checks verdes (Markdown lint, Broken link check,
+#    Spec structure check, Marp build check, build_and_deploy)
+#    y mergear con squash:
+gh pr merge --squash --delete-branch
+
+# 5. Sincronizar local
+git checkout main && git pull
+```
+
+**Checks requeridos** (configurados en branch protection):
+
+- `Markdown lint` — markdownlint sobre todos los `.md`
+- `Broken link check` — lychee sobre todos los enlaces
+- `Spec structure check` — `scripts/check-specs.sh`
+- `Marp build check` — renderiza los 6 decks como smoke test
+- `build_and_deploy` — build de Firebase (preview deploy si hay secret)
+
+**Saltarse la protección en emergencias:** `gh pr merge --squash --delete-branch --admin` (requiere rol admin en el org).
+
 ## Releases
 
 El workflow `.github/workflows/release.yml` genera artefactos versionados:

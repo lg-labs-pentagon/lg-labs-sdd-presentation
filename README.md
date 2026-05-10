@@ -231,6 +231,12 @@ Para saltar el hook puntualmente: `git commit --no-verify` (no abuses).
 
 Los PRs llegan etiquetados con `dependencies` para filtrarlos fácil.
 
+> ⚠️ **Nota sobre secrets en PRs de Dependabot:** GitHub no inyecta los secrets del repo en PRs creados por Dependabot ni desde forks. Por eso el step de "Deploy preview (PRs)" se salta automáticamente cuando `FIREBASE_SERVICE_ACCOUNT` no está disponible. Detalles en [`CONTRIBUTING.md`](CONTRIBUTING.md#sobre-dependabot-y-secrets).
+
+## Contribuir
+
+La rama `main` está protegida y todos los cambios pasan por PR con checks obligatorios. El flujo completo, convención de commits, checks requeridos y cómo validar localmente están en [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 ## Releases
 
 El workflow `.github/workflows/release.yml` genera artefactos versionados:

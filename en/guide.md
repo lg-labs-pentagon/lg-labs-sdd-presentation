@@ -42,6 +42,7 @@ By the end of 30 min, the team should be able to:
 ## Slide 4 — Base terms (part 2)
 
 **Intent vs Implementation**:
+
 - Intent = what problem we're solving
 - Implementation = how we solve it in code
 
@@ -62,6 +63,7 @@ By the end of 30 min, the team should be able to:
 | **SDD** | What must the system do and why? | **Executable spec** |
 
 **Notes**:
+
 - SDD **does not replace** the others. It **orchestrates** them. Spec is the source; tests, scenarios, and models derive from it.
 - **ATDD vs SDD**: ATDD centers on acceptance tests as the development driver (business + QA + dev agree on tests before coding). SDD is broader: the spec contains the AC, but also context, behavior rules, glossary, and out-of-scope. ATDD's acceptance tests can be seen as a **byproduct** of the SDD spec.
 - **ATDD vs BDD**: BDD uses structured natural language (Given/When/Then in Gherkin); ATDD does not require a specific format. BDD is often considered a practical "implementation" of ATDD.
@@ -163,6 +165,7 @@ with multiple items. Validate that everything is OK.
 ```
 
 **Problems**:
+
 - No context for the why.
 - "Everything is OK" is not verifiable.
 - No edge cases defined.
@@ -294,6 +297,7 @@ Mapping table:
 **Week 4**: retrospective, metrics (rework, clarity), expansion.
 
 **Success metrics**:
+
 - % PRs with referenced spec
 - Bugs from requirement ambiguity (should drop)
 - Time to onboard new features

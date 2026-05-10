@@ -15,6 +15,7 @@ style: |
 <!-- _class: lead -->
 
 # Spec-Driven Development
+
 ### Code became cheap. Intent did not.
 
 ---

@@ -4,7 +4,7 @@
 
 > **Required**: link to the approved spec this PR implements (or modifies).
 
-- Spec: `SPEC-XXX-NNN` — [link to spec.md](path/to/spec.md)
+- Spec: `SPEC-XXX-NNN` — [link to spec.md](../es/ejemplos/01-spec-crear-pedido.md)
 - Spec version implemented: `X.Y.Z`
 
 ## Type of change

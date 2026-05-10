@@ -20,6 +20,7 @@
 **Total estimado**: ~17h por lenguaje.
 
 **Definition of Done**:
+
 - Todos los AC tienen al menos 1 test verde.
 - Cobertura de líneas en `OrderService` ≥ 95%.
 - PR referencia `SPEC-ORDER-001`.

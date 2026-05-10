@@ -1,13 +1,12 @@
 # Spec-Driven Development — Presentación para Ingenieros Senior
 
 <!--
-Reemplaza OWNER/REPO con tu usuario y repo de GitHub para que los badges funcionen.
-Ejemplo: luis-quiroga/sdd-presentation
+Badges del repositorio de GitHub Actions y deploys.
 -->
 
-[![Deploy](https://github.com/OWNER/REPO/actions/workflows/deploy.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/deploy.yml)
-[![Validate](https://github.com/OWNER/REPO/actions/workflows/validate.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/validate.yml)
-[![Release](https://github.com/OWNER/REPO/actions/workflows/release.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/release.yml)
+[![Deploy](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/deploy.yml/badge.svg)](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/deploy.yml)
+[![Validate](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/validate.yml/badge.svg)](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/validate.yml)
+[![Release](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/release.yml/badge.svg)](https://github.com/lg-labs-pentagon/lg-labs-sdd-presentation/actions/workflows/release.yml)
 [![Hosted on Firebase](https://img.shields.io/badge/hosted_on-Firebase-FFA000?logo=firebase&logoColor=white)](https://firebase.google.com/docs/hosting)
 [![Marp](https://img.shields.io/badge/slides-Marp-1d4ed8?logo=markdown&logoColor=white)](https://marp.app/)
 
@@ -148,9 +147,11 @@ El repo incluye `.github/workflows/deploy.yml` que:
 #### Configuración (una sola vez)
 
 1. **Crea una service account de Firebase**:
+
    ```bash
    firebase init hosting:github
    ```
+
    Esto te guía y crea el secret `FIREBASE_SERVICE_ACCOUNT_<PROJECT_ID>` en GitHub automáticamente.
 
    **O manualmente**:

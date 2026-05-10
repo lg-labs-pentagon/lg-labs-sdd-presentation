@@ -10,6 +10,7 @@
 > "En la era de los agentes de IA, el código se volvió barato. La intención clara, no."
 
 **Notas**:
+
 - Pausa de 2 segundos después del hook.
 - Aclara que esta charla no es sobre "más documentación", sino sobre cambiar **dónde** vive la verdad del sistema.
 
@@ -44,6 +45,7 @@ Al final de los 30 min, el equipo debería poder:
 ## Slide 4 — Términos base (parte 2)
 
 **Intención vs Implementación**:
+
 - Intención = qué problema resolvemos
 - Implementación = cómo lo resolvemos en código
 
@@ -64,6 +66,7 @@ Al final de los 30 min, el equipo debería poder:
 | **SDD** | ¿Qué debe hacer el sistema y por qué? | **Spec ejecutable** |
 
 **Notas**:
+
 - SDD **no reemplaza** a las otras. Las **orquesta**. La spec es la fuente; los tests, escenarios y modelos derivan de ella.
 - **ATDD vs SDD**: ATDD se centra en los acceptance tests como driver del desarrollo (negocio + QA + dev acuerdan tests antes de codificar). SDD es más amplio: la spec contiene los AC, pero también context, behavior rules, glossary y out-of-scope. Los acceptance tests de ATDD pueden verse como **un subproducto** de la spec SDD.
 - **ATDD vs BDD**: BDD usa lenguaje natural estructurado (Given/When/Then en Gherkin); ATDD no exige un formato específico. BDD suele considerarse una "implementación" práctica de ATDD.
@@ -165,6 +168,7 @@ con varios items. Validar que todo esté bien.
 ```
 
 **Problemas**:
+
 - No hay contexto del por qué.
 - "Todo esté bien" no es verificable.
 - No define casos borde.
@@ -298,6 +302,7 @@ Tabla de mapeo:
 **Semana 4**: retrospectiva, métricas (rework, claridad), expansión.
 
 **Métricas de éxito**:
+
 - % PRs con spec referenciada
 - Bugs por ambigüedad de requerimiento (debería bajar)
 - Tiempo de onboarding a nuevas features

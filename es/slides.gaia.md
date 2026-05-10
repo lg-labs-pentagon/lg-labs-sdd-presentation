@@ -16,6 +16,7 @@ style: |
 <!-- _class: lead -->
 
 # Spec-Driven Development
+
 ### El código se volvió barato. La intención, no.
 
 ---

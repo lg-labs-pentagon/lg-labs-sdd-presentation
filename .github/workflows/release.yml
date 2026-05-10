@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (ej: v1.2.0)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    name: Build artifacts & create release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Resolve version
+        id: ver
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "tag=${{ inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build all decks (HTML + PDF + PPTX)
+        run: |
+          mkdir -p dist/{html,pdf,pptx}
+          for lang in es en; do
+            for theme in default gaia uncover; do
+              base="$lang-$theme"
+              echo "Building $base..."
+              npx -y @marp-team/marp-cli@latest "$lang/slides.$theme.md" \
+                --html --output "dist/html/$base.html"
+              npx -y @marp-team/marp-cli@latest "$lang/slides.$theme.md" \
+                --pdf --allow-local-files --output "dist/pdf/$base.pdf"
+              npx -y @marp-team/marp-cli@latest "$lang/slides.$theme.md" \
+                --pptx --allow-local-files --output "dist/pptx/$base.pptx"
+            done
+          done
+
+      - name: Bundle artifacts
+        run: |
+          cd dist
+          zip -r "../sdd-presentation-${{ steps.ver.outputs.tag }}-html.zip" html
+          zip -r "../sdd-presentation-${{ steps.ver.outputs.tag }}-pdf.zip" pdf
+          zip -r "../sdd-presentation-${{ steps.ver.outputs.tag }}-pptx.zip" pptx
+          cd ..
+          # Bundle conjunto con specs + plantillas + ejemplos
+          zip -r "sdd-presentation-${{ steps.ver.outputs.tag }}-source.zip" \
+            es en templates assets README.md
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ${{ steps.ver.outputs.tag }}
+          generate_release_notes: true
+          files: |
+            sdd-presentation-${{ steps.ver.outputs.tag }}-html.zip
+            sdd-presentation-${{ steps.ver.outputs.tag }}-pdf.zip
+            sdd-presentation-${{ steps.ver.outputs.tag }}-pptx.zip
+            sdd-presentation-${{ steps.ver.outputs.tag }}-source.zip

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Pre-commit: corre los mismos checks que CI sobre archivos staged.
+set -e
+
+# Lint + autofix de markdown sobre archivos staged
+npx lint-staged
+
+# Validar estructura de specs (siempre, no solo staged)
+bash scripts/check-specs.sh
+
+echo "Pre-commit OK"

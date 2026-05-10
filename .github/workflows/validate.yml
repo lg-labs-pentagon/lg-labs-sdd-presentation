@@ -1,0 +1,68 @@
+name: Validate Specs & Markdown
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  markdown_lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli@0.41.0
+      - name: Lint markdown
+        run: markdownlint "**/*.md" --ignore node_modules --ignore public --config .markdownlint.json
+
+  link_check:
+    name: Broken link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --exclude-path public
+            --exclude-path node_modules
+            --exclude-mail
+            './**/*.md'
+          fail: true
+
+  spec_structure:
+    name: Spec structure check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run spec structure check
+        run: bash scripts/check-specs.sh
+
+  marp_build_check:
+    name: Marp build check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build all decks (smoke test)
+        run: |
+          mkdir -p /tmp/marp-out
+          for lang in es en; do
+            for theme in default gaia uncover; do
+              echo "Building $lang/$theme..."
+              npx -y @marp-team/marp-cli@latest \
+                "$lang/slides.$theme.md" \
+                --html \
+                --output "/tmp/marp-out/$lang-$theme.html"
+            done
+          done
+          echo "All 6 decks built successfully."
